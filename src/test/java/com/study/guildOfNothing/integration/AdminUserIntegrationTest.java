@@ -244,6 +244,19 @@ class AdminUserIntegrationTest {
 
 	@Test
 	@Order(12)
+	void updateAdminUserFailBecauseNotAuthorizedHeaders() {
+		UserInDto user = new UserInDto(temporaryAdminUser);
+
+		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, headersNotAuthorized);
+
+		ResponseEntity<String> responseEntity = testRestTemplate
+				.exchange(getUrlForEndpoint("/user/"+temporaryAdminUser.getId()), HttpMethod.PUT, entity, String.class);
+
+		assertEquals(HttpStatus.FORBIDDEN, responseEntity.getStatusCode());
+	}
+
+	@Test
+	@Order(13)
 	void updateAdminUserFailBecausePasswordNotHaveSufficientLength() {
 		UserInDto user = new UserInDto(temporaryAdminUser);
 		String passwordWithInsufficientLength = "12345";
@@ -259,7 +272,7 @@ class AdminUserIntegrationTest {
 	}
 
 	@Test
-	@Order(13)
+	@Order(14)
 	void updateAdminUserSuccess() {
 		UserInDto user = new UserInDto(temporaryAdminUser);
 
@@ -278,7 +291,7 @@ class AdminUserIntegrationTest {
 	}
 
 	@Test
-	@Order(14)
+	@Order(15)
 	void deleteAdminUserFailBecauseNotAuthorized() {
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(headersNotAuthorized);
 
@@ -289,7 +302,18 @@ class AdminUserIntegrationTest {
 	}
 
 	@Test
-	@Order(15)
+	@Order(16)
+	void deleteAdminUserFailBecauseTryingDeleteAnotherUser() {
+		final HttpEntity<UserInDto> entity = new HttpEntity<>(adminUserInDatabaseHeaders);
+
+		ResponseEntity<String> responseEntity = testRestTemplate
+				.exchange(getUrlForEndpoint("/user/"+temporaryAdminUser.getId()), HttpMethod.DELETE, entity, String.class);
+
+		assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
+	}
+
+	@Test
+	@Order(17)
 	void deleteAdminUserFailBecauseAdminNotExists() {
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(temporaryAdminUserHeaders);
 
@@ -300,7 +324,7 @@ class AdminUserIntegrationTest {
 	}
 
 	@Test
-	@Order(16)
+	@Order(18)
 	void deleteAdminUserSuccess() {
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(temporaryAdminUserHeaders);
 
