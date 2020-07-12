@@ -80,8 +80,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(1)
 	void authenticationAdminUserFailBecauseIncorrectPassword() {
-		UserInDto user = new UserInDto();
-		user.setEmail(adminUserInDatabase.getEmail());
+		UserInDto user = new UserInDto(adminUserInDatabase);
 		String incorrectPassword = "incorrect";
 		user.setPassword(incorrectPassword);
 
@@ -96,9 +95,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(2)
 	void authenticationAdminUserSuccess() {
-		UserInDto user = new UserInDto();
-		user.setEmail(adminUserInDatabase.getEmail());
-		user.setPassword(adminUserInDatabase.getPassword());
+		UserInDto user = new UserInDto(adminUserInDatabase);
 
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user);
 
@@ -119,9 +116,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(3)
 	void createAdminUserFailBecausePasswordNotHaveSufficientLength() {
-		UserInDto user = new UserInDto();
-		user.setName(temporaryAdminUser.getName());
-		user.setEmail(temporaryAdminUser.getEmail());
+		UserInDto user = new UserInDto(temporaryAdminUser);
 		String passwordWithInsufficientLength = "12345";
 		user.setPassword(passwordWithInsufficientLength);
 
@@ -136,10 +131,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(4)
 	void createAdminUserFailBecauseEmailAlreadyExists() {
-		UserInDto user = new UserInDto();
-		user.setName(adminUserInDatabase.getName());
-		user.setEmail(adminUserInDatabase.getEmail());
-		user.setPassword(adminUserInDatabase.getPassword());
+		UserInDto user = new UserInDto(adminUserInDatabase);
 
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, adminUserInDatabaseHeaders);
 
@@ -152,10 +144,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(5)
 	void createAdminUserFailBecauseNotAdminHeaders() {
-		UserInDto user = new UserInDto();
-		user.setName(adminUserInDatabase.getName());
-		user.setEmail(adminUserInDatabase.getEmail());
-		user.setPassword(adminUserInDatabase.getPassword());
+		UserInDto user = new UserInDto(adminUserInDatabase);
 
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, headersNotAuthorized);
 
@@ -168,10 +157,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(6)
 	void createAdminUserSuccess() {
-		UserInDto user = new UserInDto();
-		user.setName(temporaryAdminUser.getName());
-		user.setEmail(temporaryAdminUser.getEmail());
-		user.setPassword(temporaryAdminUser.getPassword());
+		UserInDto user = new UserInDto(temporaryAdminUser);
 
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, adminUserInDatabaseHeaders);
 
@@ -203,7 +189,6 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(8)
 	void getAdminUserFailBecauseNotAuthorized() {
-		HttpHeaders headersNotAuthorized = new HttpHeaders();
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(headersNotAuthorized);
 
 		ResponseEntity<String> responseEntity = testRestTemplate
@@ -234,9 +219,7 @@ class AdminUserIntegrationTest {
 	void updateAdminUserFailBecauseUserNotExists() {
 		temporaryAdminUser.setName(temporaryAdminUser.getName() + randomNumberForUpdate);
 
-		UserInDto user = new UserInDto();
-		user.setName(temporaryAdminUser.getName());
-		user.setPassword(temporaryAdminUser.getPassword());
+		UserInDto user = new UserInDto(temporaryAdminUser);
 
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, adminUserInDatabaseHeaders);
 
@@ -249,9 +232,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(11)
 	void updateAdminUserFailBecauseTryingUpdateAnotherUser() {
-		UserInDto user = new UserInDto();
-		user.setName(temporaryAdminUser.getName());
-		user.setPassword(temporaryAdminUser.getPassword());
+		UserInDto user = new UserInDto(temporaryAdminUser);
 
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, adminUserInDatabaseHeaders);
 
@@ -264,8 +245,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(12)
 	void updateAdminUserFailBecausePasswordNotHaveSufficientLength() {
-		UserInDto user = new UserInDto();
-		user.setName(temporaryAdminUser.getName());
+		UserInDto user = new UserInDto(temporaryAdminUser);
 		String passwordWithInsufficientLength = "12345";
 		user.setPassword(passwordWithInsufficientLength);
 
@@ -281,9 +261,7 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(13)
 	void updateAdminUserSuccess() {
-		UserInDto user = new UserInDto();
-		user.setName(temporaryAdminUser.getName());
-		user.setPassword(temporaryAdminUser.getPassword());
+		UserInDto user = new UserInDto(temporaryAdminUser);
 
 		settingHeadersForTemporaryAdminUser();
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(user, temporaryAdminUserHeaders);
@@ -302,7 +280,6 @@ class AdminUserIntegrationTest {
 	@Test
 	@Order(14)
 	void deleteAdminUserFailBecauseNotAuthorized() {
-		HttpHeaders headersNotAuthorized = new HttpHeaders();
 		final HttpEntity<UserInDto> entity = new HttpEntity<>(headersNotAuthorized);
 
 		ResponseEntity<String> responseEntity = testRestTemplate
