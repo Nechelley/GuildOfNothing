@@ -160,4 +160,3 @@ insert into user_x_profile(user_id, profile_id)
 values(4, 2);
 
 --end only for automated test
-

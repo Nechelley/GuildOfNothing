@@ -26,6 +26,12 @@ public class UserInDto {
 	@Email
 	private String email;
 
+	public UserInDto(User user) {
+		name = user.getName();
+		email = user.getEmail();
+		password = user.getPassword();
+	}
+
 	public User createUser() {
 		User user = new User();
 		user.setName(name);
