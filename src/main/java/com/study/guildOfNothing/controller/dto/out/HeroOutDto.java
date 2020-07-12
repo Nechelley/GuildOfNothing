@@ -1,10 +1,17 @@
 package com.study.guildOfNothing.controller.dto.out;
 
 import com.study.guildOfNothing.model.Hero;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class HeroOutDto {
 
 	private Long id;
@@ -18,8 +25,6 @@ public class HeroOutDto {
 	private int life;
 	private List<CharacterActionOutDto> characterActions;
 
-	public HeroOutDto() { }
-
 	public HeroOutDto(Hero hero) {
 		id = hero.getId();
 		name = hero.getName();
@@ -31,46 +36,6 @@ public class HeroOutDto {
 		availableActionPoints = hero.getAvailableActionPoints();
 		life = hero.getLife();
 		characterActions = CharacterActionOutDto.createDtoFromCharacterActionList(hero.getCharacterActions());
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public CharacterClassOutDto getHeroClass() {
-		return heroClass;
-	}
-
-	public CharacterAttributesOutDto getBaseHeroAttributes() {
-		return baseHeroAttributes;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public int getExperiencePoints() {
-		return experiencePoints;
-	}
-
-	public int getAvailableAttributePoints() {
-		return availableAttributePoints;
-	}
-
-	public int getAvailableActionPoints() {
-		return availableActionPoints;
-	}
-
-	public int getLife() {
-		return life;
-	}
-
-	public List<CharacterActionOutDto> getCharacterActions() {
-		return characterActions;
 	}
 
 	public static Page<HeroOutDto> createDtoFromHeroesList(Page<Hero> heroes) {

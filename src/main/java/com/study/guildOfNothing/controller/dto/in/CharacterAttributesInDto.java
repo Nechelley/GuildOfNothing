@@ -2,10 +2,16 @@ package com.study.guildOfNothing.controller.dto.in;
 
 import com.study.guildOfNothing.model.CharacterAttributes;
 import com.study.guildOfNothing.general.dtoGroup.OnUpdate;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class CharacterAttributesInDto {
 
 	@NotNull(groups = OnUpdate.class)
@@ -23,28 +29,6 @@ public class CharacterAttributesInDto {
 	@NotNull
 	@Min(groups = OnUpdate.class, value = 1)
 	private int healthPoints;
-
-	public CharacterAttributesInDto() { }
-
-	public int getStrength() {
-		return strength;
-	}
-
-	public int getIntelligence() {
-		return intelligence;
-	}
-
-	public int getMagicDefense() {
-		return magicDefense;
-	}
-
-	public int getPhysicalDefense() {
-		return physicalDefense;
-	}
-
-	public int getHealthPoints() {
-		return healthPoints;
-	}
 
 	public CharacterAttributes createCharacterAttributes() {
 		CharacterAttributes characterAttributes = new CharacterAttributes();

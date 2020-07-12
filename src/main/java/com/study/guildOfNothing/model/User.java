@@ -1,9 +1,7 @@
 package com.study.guildOfNothing.model;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,7 +39,7 @@ public class User implements UserDetails {
 			joinColumns = {@JoinColumn(name="user_id")},
 			inverseJoinColumns = {@JoinColumn(name="profile_id")})
 	private List<Profile> profiles = new ArrayList<>();
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Hero> heroes = new ArrayList<>();
 

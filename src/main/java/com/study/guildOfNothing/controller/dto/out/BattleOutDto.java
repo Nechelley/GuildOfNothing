@@ -1,9 +1,15 @@
 package com.study.guildOfNothing.controller.dto.out;
 
 import com.study.guildOfNothing.model.Battle;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class BattleOutDto {
 
 	private Long id;
@@ -13,8 +19,6 @@ public class BattleOutDto {
 	private CharacterOutDto characterTurn;
 	private boolean occurring;
 
-	public BattleOutDto() { }
-
 	public BattleOutDto(Battle battle) {
 		id = battle.getId();
 		hero = new HeroOutDto(battle.getHero());
@@ -22,30 +26,6 @@ public class BattleOutDto {
 		battleLogMessageOutDto = BattleLogMessageOutDto.createDtoFromBattleLogMessageList(battle.getBattleLogMessages());
 		characterTurn = new CharacterOutDto(battle.getCharacterTurn());
 		occurring = battle.isOccurring();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public HeroOutDto getHero() {
-		return hero;
-	}
-
-	public EnemyOutDto getEnemy() {
-		return enemy;
-	}
-
-	public List<BattleLogMessageOutDto> getBattleLogMessageOutDto() {
-		return battleLogMessageOutDto;
-	}
-
-	public CharacterOutDto getCharacterTurn() {
-		return characterTurn;
-	}
-
-	public boolean isOccurring() {
-		return occurring;
 	}
 
 }

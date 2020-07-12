@@ -1,5 +1,9 @@
 package com.study.guildOfNothing.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +14,8 @@ import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Battle {
 
 	@Id
@@ -17,7 +23,7 @@ public class Battle {
 	private Long id;
 	@ManyToOne
 	private Hero hero;
-	@OneToMany(mappedBy = "battle")
+	@OneToMany(mappedBy = "battle", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BattleLogMessage> battleLogMessages;
 	@OneToOne
 	private Enemy enemy;
@@ -27,66 +33,8 @@ public class Battle {
 	@ManyToOne
 	private Character winner;
 
-	public Battle() { }
-
 	public Battle(Long id) {
 		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Hero getHero() {
-		return hero;
-	}
-
-	public void setHero(Hero hero) {
-		this.hero = hero;
-	}
-
-	public List<BattleLogMessage> getBattleLogMessages() {
-		return battleLogMessages;
-	}
-
-	public void setBattleLogMessages(List<BattleLogMessage> battleLogMessages) {
-		this.battleLogMessages = battleLogMessages;
-	}
-
-	public Enemy getEnemy() {
-		return enemy;
-	}
-
-	public void setEnemy(Enemy enemy) {
-		this.enemy = enemy;
-	}
-
-	public Character getCharacterTurn() {
-		return characterTurn;
-	}
-
-	public void setCharacterTurn(Character characterTurn) {
-		this.characterTurn = characterTurn;
-	}
-
-	public boolean isOccurring() {
-		return occurring;
-	}
-
-	public void setOccurring(boolean occurring) {
-		this.occurring = occurring;
-	}
-
-	public Character getWinner() {
-		return winner;
-	}
-
-	public void setWinner(Character winner) {
-		this.winner = winner;
 	}
 
 }

@@ -19,4 +19,5 @@ public interface HeroService {
 
 	Hero getHero(Long id);
 
+	void deleteHero(Long id) throws EntityNonExistentForManipulateException, TryingManipulateAnotherUserStuffException;
 }

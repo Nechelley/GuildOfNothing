@@ -1,15 +1,19 @@
 package com.study.guildOfNothing.controller.dto.out;
 
 import com.study.guildOfNothing.model.BattleLogMessage;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class BattleLogMessageOutDto {
 
 	private String text;
-
-	BattleLogMessageOutDto() { }
 
 	BattleLogMessageOutDto(BattleLogMessage battleLogMessage) {
 		text = battleLogMessage.getText();

@@ -1,5 +1,8 @@
 package com.study.guildOfNothing.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +12,8 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
 public class CharacterAction {
 
 	@Id
@@ -17,48 +22,11 @@ public class CharacterAction {
 	private String name;
 	private int costActionPoints;
 
-	private static final int EXIT_ID = 1;
-	private static final int PASS_TIME_ID = 2;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getCostActionPoints() {
-		return costActionPoints;
-	}
-
-	public void setCostActionPoints(int costActionPoints) {
-		this.costActionPoints = costActionPoints;
-	}
-
-	public static int getExitId() {
-		return EXIT_ID;
-	}
-
-	public static int getPassTimeId() {
-		return PASS_TIME_ID;
-	}
+	public static final int EXIT_ID = 1;
+	public static final int PASS_TIME_ID = 2;
 
 	public boolean isSpecialAction() {
 		return id == EXIT_ID || id == PASS_TIME_ID;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return ((CharacterAction) obj).id == id;
 	}
 
 }

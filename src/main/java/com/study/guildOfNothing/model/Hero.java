@@ -1,29 +1,26 @@
 package com.study.guildOfNothing.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @PrimaryKeyJoinColumn(name = "character_id")
+@Data
+@NoArgsConstructor
 public class Hero extends Character {
 
 	@ManyToOne
 	private User user;
 
-	public Hero() { }
-
 	public Hero(Long id) {
 		super();
 		setId(id);
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public boolean isHero() {
@@ -31,8 +28,8 @@ public class Hero extends Character {
 	}
 
 	public void recover() {
-		setLife(getBaseCharacterAttributes().getHealthPoints()*getLifeMultiplier());
-		setAvailableActionPoints(getInitialActionPoints());
+		setLife(getBaseCharacterAttributes().getHealthPoints()*Character.LIFE_MULTIPLIER);
+		setAvailableActionPoints(Character.INITIAL_ACTION_POINTS);
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.study.guildOfNothing.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class BattleLogMessage {
 
 	@Id
@@ -16,35 +21,9 @@ public class BattleLogMessage {
 	@ManyToOne
 	private Battle battle;
 
-	public BattleLogMessage() { }
-
 	public BattleLogMessage(Battle battle, String text) {
 		this.battle = battle;
 		this.text = text;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public Battle getBattle() {
-		return battle;
-	}
-
-	public void setBattle(Battle battle) {
-		this.battle = battle;
 	}
 
 }

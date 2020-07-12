@@ -1,7 +1,13 @@
 package com.study.guildOfNothing.controller.dto.out;
 
 import com.study.guildOfNothing.model.CharacterAttributes;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class CharacterAttributesOutDto {
 
 	private Long id;
@@ -11,8 +17,6 @@ public class CharacterAttributesOutDto {
 	private int physicalDefense;
 	private int healthPoints;
 
-	public CharacterAttributesOutDto() { }
-
 	public CharacterAttributesOutDto(CharacterAttributes characterAttributes) {
 		this.id = characterAttributes.getId();
 		this.strength = characterAttributes.getStrength();
@@ -20,30 +24,6 @@ public class CharacterAttributesOutDto {
 		this.magicDefense = characterAttributes.getMagicDefense();
 		this.physicalDefense = characterAttributes.getPhysicalDefense();
 		this.healthPoints = characterAttributes.getHealthPoints();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public int getStrength() {
-		return strength;
-	}
-
-	public int getIntelligence() {
-		return intelligence;
-	}
-
-	public int getMagicDefense() {
-		return magicDefense;
-	}
-
-	public int getPhysicalDefense() {
-		return physicalDefense;
-	}
-
-	public int getHealthPoints() {
-		return healthPoints;
 	}
 
 }

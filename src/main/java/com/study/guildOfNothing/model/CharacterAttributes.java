@@ -1,6 +1,8 @@
 package com.study.guildOfNothing.model;
 
 import com.study.guildOfNothing.constant.AttackActionTypeEnum;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class CharacterAttributes {
 
 	@Id
@@ -19,9 +23,7 @@ public class CharacterAttributes {
 	private int physicalDefense;
 	private int healthPoints;
 
-	private static final int INITIAL_TOTAL_POINTS = 45;
-
-	public CharacterAttributes() { }
+	public static final int INITIAL_TOTAL_POINTS = 45;
 
 	public CharacterAttributes(CharacterAttributes characterAttributes) {
 		this.strength = characterAttributes.strength;
@@ -29,58 +31,6 @@ public class CharacterAttributes {
 		this.magicDefense = characterAttributes.magicDefense;
 		this.physicalDefense = characterAttributes.physicalDefense;
 		this.healthPoints = characterAttributes.healthPoints;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getStrength() {
-		return strength;
-	}
-
-	public void setStrength(int strength) {
-		this.strength = strength;
-	}
-
-	public int getIntelligence() {
-		return intelligence;
-	}
-
-	public void setIntelligence(int intelligence) {
-		this.intelligence = intelligence;
-	}
-
-	public int getMagicDefense() {
-		return magicDefense;
-	}
-
-	public void setMagicDefense(int magicDefense) {
-		this.magicDefense = magicDefense;
-	}
-
-	public int getPhysicalDefense() {
-		return physicalDefense;
-	}
-
-	public void setPhysicalDefense(int physicalDefense) {
-		this.physicalDefense = physicalDefense;
-	}
-
-	public int getHealthPoints() {
-		return healthPoints;
-	}
-
-	public void setHealthPoints(int healthPoints) {
-		this.healthPoints = healthPoints;
-	}
-
-	public static int getInitialTotalPoints() {
-		return INITIAL_TOTAL_POINTS;
 	}
 
 	public int getTotalPointsUtilized() {

@@ -1,5 +1,8 @@
 package com.study.guildOfNothing.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.List;
 
+import static com.study.guildOfNothing.model.CharacterAttributes.INITIAL_TOTAL_POINTS;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@NoArgsConstructor
 public class Character {
 
 	@Id
@@ -24,7 +31,7 @@ public class Character {
 	private String name;
 	@ManyToOne(optional = false)
 	private CharacterClass characterClass;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private CharacterAttributes baseCharacterAttributes;
 	private int level;
 	private int experiencePoints;
@@ -37,102 +44,14 @@ public class Character {
 	private int availableActionPoints;
 	private int life;
 
-	private static final int INITIAL_LEVEL = 1;
-	private static final int INITIAL_EXPERIENCE_POINTS = 0;
-	private static final int INITIAL_AVAILABLE_ATTRIBUTE_POINTS = 2;
-	private static final int POINTS_EARNED_PER_LEVEL = 2;
-	private static final int LIFE_MULTIPLIER = 10;
-	private static final int INITIAL_ACTION_POINTS = 4;
-	private static final int INCREMENTAL_ACTION_POINTS = 4;
-	private static final int MAX_ACTION_POINTS = 10;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public CharacterClass getCharacterClass() {
-		return characterClass;
-	}
-
-	public void setCharacterClass(CharacterClass characterClass) {
-		this.characterClass = characterClass;
-	}
-
-	public CharacterAttributes getBaseCharacterAttributes() {
-		return baseCharacterAttributes;
-	}
-
-	public void setBaseCharacterAttributes(CharacterAttributes baseCharacterAttributes) {
-		this.baseCharacterAttributes = baseCharacterAttributes;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public int getExperiencePoints() {
-		return experiencePoints;
-	}
-
-	public void setExperiencePoints(int experiencePoints) {
-		this.experiencePoints = experiencePoints;
-	}
-
-	public int getAvailableAttributePoints() {
-		return availableAttributePoints;
-	}
-
-	public void setAvailableAttributePoints(int availableAttributePoints) {
-		this.availableAttributePoints = availableAttributePoints;
-	}
-
-	public List<CharacterAction> getCharacterActions() {
-		return characterActions;
-	}
-
-	public void setCharacterActions(List<CharacterAction> characterActions) {
-		this.characterActions = characterActions;
-	}
-
-	public int getAvailableActionPoints() {
-		return availableActionPoints;
-	}
-
-	public void setAvailableActionPoints(int availableActionPoints) {
-		this.availableActionPoints = availableActionPoints;
-	}
-
-	public int getLife() {
-		return life;
-	}
-
-	public void setLife(int life) {
-		this.life = life;
-	}
-
-	public static int getLifeMultiplier() {
-		return LIFE_MULTIPLIER;
-	}
-
-	public static int getInitialActionPoints() {
-		return INITIAL_ACTION_POINTS;
-	}
+	public static final int INITIAL_LEVEL = 1;
+	public static final int INITIAL_EXPERIENCE_POINTS = 0;
+	public static final int INITIAL_AVAILABLE_ATTRIBUTE_POINTS = 2;
+	public static final int POINTS_EARNED_PER_LEVEL = 2;
+	public static final int LIFE_MULTIPLIER = 10;
+	public static final int INITIAL_ACTION_POINTS = 4;
+	public static final int INCREMENTAL_ACTION_POINTS = 4;
+	public static final int MAX_ACTION_POINTS = 10;
 
 	public void initializeNewCharacterByCharacterClass(CharacterClass characterClass) {
 		this.characterClass = characterClass;
@@ -175,7 +94,7 @@ public class Character {
 	}
 
 	private int getTotalPossibleAvailablePointsInThisLevel() {
-		return POINTS_EARNED_PER_LEVEL*level + CharacterAttributes.getInitialTotalPoints();
+		return POINTS_EARNED_PER_LEVEL*level + INITIAL_TOTAL_POINTS;
 	}
 
 	public void takeDamage(int damage) {

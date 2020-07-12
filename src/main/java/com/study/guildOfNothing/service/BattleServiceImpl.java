@@ -118,9 +118,9 @@ public class BattleServiceImpl implements BattleService {
 		if (!battleInDatabase.getHero().hasActionPointsEnoughForCharacterAction(characterActionInDatabase))
 			throw new FormErrorException(CHARACTER_ACTION_ID, "Hero doesn't have enough action points. Need " + characterAction.getCostActionPoints() + " have " + battleInDatabase.getHero().getAvailableActionPoints());
 
-		if (characterActionInDatabase.getId() == CharacterAction.getExitId())
+		if (characterActionInDatabase.getId() == CharacterAction.EXIT_ID)
 			return doExitActionOnBattle(battleInDatabase);
-		else if (characterActionInDatabase.getId() == CharacterAction.getPassTimeId())
+		else if (characterActionInDatabase.getId() == CharacterAction.PASS_TIME_ID)
 			return doPassTimeActionOnBattle(battleInDatabase);
 		else
 			return doGenericHeroCharacterAction(battleInDatabase, characterActionInDatabase);

@@ -43,6 +43,7 @@ public class HeroServiceImpl implements HeroService {
 		return heroRepository.findAllByUserId(userLogged.getId(), pageable);
 	}
 
+	@Override
 	@Transactional
 	public Hero createHero(Hero hero) throws FormErrorException, LimitHeroesCreatedException {
 		User userLogged = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -61,6 +62,7 @@ public class HeroServiceImpl implements HeroService {
 		return heroRepository.save(hero);
 	}
 
+	@Override
 	@Transactional
 	public Hero updateHero(Hero hero) throws EntityNonExistentForManipulateException, TryingManipulateAnotherUserStuffException, FormErrorException, HeroInBattleException {
 		Optional<Hero> heroInDatabase = heroRepository.findById(hero.getId());
@@ -84,6 +86,7 @@ public class HeroServiceImpl implements HeroService {
 		return heroRepository.save(heroToUpdate);
 	}
 
+	@Override
 	public Hero getHero(Long id) {
 		Optional<Hero> hero = heroRepository.findById(id);
 
@@ -91,6 +94,18 @@ public class HeroServiceImpl implements HeroService {
 			return null;
 
 		return hero.get();
+	}
+
+	@Override
+	@Transactional
+	public void deleteHero(Long id) throws EntityNonExistentForManipulateException, TryingManipulateAnotherUserStuffException {
+		Optional<Hero> heroInDatabase = heroRepository.findById(id);
+		if (!heroInDatabase.isPresent())
+			throw new EntityNonExistentForManipulateException();
+
+		userService.testIfUserTryingManipulateAnotherUser(heroInDatabase.get().getUser());
+
+		heroRepository.deleteById(id);
 	}
 
 }

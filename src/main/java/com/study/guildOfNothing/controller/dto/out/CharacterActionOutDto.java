@@ -2,10 +2,16 @@ package com.study.guildOfNothing.controller.dto.out;
 
 import com.study.guildOfNothing.model.AttackAction;
 import com.study.guildOfNothing.model.CharacterAction;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class CharacterActionOutDto {
 
 	private Long id;
@@ -22,26 +28,6 @@ public class CharacterActionOutDto {
 			type = ((AttackAction) characterAction).getType().getText();
 			damage = ((AttackAction) characterAction).getDamage();
 		}
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getCostActionPoints() {
-		return costActionPoints;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public int getDamage() {
-		return damage;
 	}
 
 	public static List<CharacterActionOutDto> createDtoFromCharacterActionList(List<CharacterAction> characterActions) {
