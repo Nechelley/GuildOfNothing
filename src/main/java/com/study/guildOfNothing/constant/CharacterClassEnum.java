@@ -5,11 +5,11 @@ import java.util.Random;
 //Equal in database
 public enum CharacterClassEnum {
 
-	WARRIOR(1L), MAGE(2L), CLERIC(3L);
+	WARRIOR(1L), MAGE(2L), CLERIC(3L), ARCHER(4L), ASSASSIN(5L);
 
 	private Long id;
 
-	private static final int TOTAL_CLASSES = 3;
+	private static final int TOTAL_CLASSES = 5;
 
 	CharacterClassEnum(Long id) {
 		this.id = id;

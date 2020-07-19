@@ -2,9 +2,11 @@ package com.study.guildOfNothing.service.onlyInterface;
 
 import com.study.guildOfNothing.model.CharacterClass;
 
+import java.util.Optional;
+
 public interface CharacterClassService {
 
-	CharacterClass getCharacterClass(Long id);
+	Optional<CharacterClass> getCharacterClass(Long id);
 
 	CharacterClass getRandomCharacterClass();
 

@@ -28,7 +28,7 @@ public class Hero extends Character {
 	}
 
 	public void recover() {
-		setLife(getBaseCharacterAttributes().getHealthPoints()*Character.LIFE_MULTIPLIER);
+		setLife(getBaseCharacterAttributes().getConstitution()*Character.LIFE_MULTIPLIER);
 		setAvailableActionPoints(Character.INITIAL_ACTION_POINTS);
 	}
 

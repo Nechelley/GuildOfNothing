@@ -12,18 +12,24 @@ public class CharacterAttributesOutDto {
 
 	private Long id;
 	private int strength;
+	private int dexterity;
 	private int intelligence;
-	private int magicDefense;
-	private int physicalDefense;
-	private int healthPoints;
+	private int wisdom;
+	private int charism;
+	private int constitution;
+	private int magicResistence;
+	private int physicalResistence;
 
 	public CharacterAttributesOutDto(CharacterAttributes characterAttributes) {
-		this.id = characterAttributes.getId();
-		this.strength = characterAttributes.getStrength();
-		this.intelligence = characterAttributes.getIntelligence();
-		this.magicDefense = characterAttributes.getMagicDefense();
-		this.physicalDefense = characterAttributes.getPhysicalDefense();
-		this.healthPoints = characterAttributes.getHealthPoints();
+		id = characterAttributes.getId();
+		strength = characterAttributes.getStrength();
+		dexterity = characterAttributes.getDexterity();
+		intelligence = characterAttributes.getIntelligence();
+		wisdom = characterAttributes.getWisdom();
+		charism = characterAttributes.getCharism();
+		constitution = characterAttributes.getConstitution();
+		magicResistence = characterAttributes.getMagicResistence();
+		physicalResistence = characterAttributes.getPhysicalResistence();
 	}
 
 }

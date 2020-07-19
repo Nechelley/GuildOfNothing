@@ -9,6 +9,8 @@ import com.study.guildOfNothing.general.configuration.validation.exception.Tryin
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 public interface HeroService {
 
 	Page<Hero> getHeroesByUser(Pageable pageable);
@@ -17,7 +19,8 @@ public interface HeroService {
 
 	Hero updateHero(Hero hero) throws EntityNonExistentForManipulateException, TryingManipulateAnotherUserStuffException, FormErrorException, HeroInBattleException;
 
-	Hero getHero(Long id);
+	Optional<Hero> getHero(Long id);
 
 	void deleteHero(Long id) throws EntityNonExistentForManipulateException, TryingManipulateAnotherUserStuffException;
+
 }

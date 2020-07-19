@@ -21,18 +21,24 @@ public class Enemy extends Character {
 		adjustAvailableAttributePointsAutomatic();
 
 		CharacterAttributesEnum randomCharacterAttribute;
-		for (int i = 0; i < getAvailableActionPoints(); i++) {
+		for (int i = 0; i < getAvailableAttributePoints(); i++) {
 			randomCharacterAttribute = CharacterAttributesEnum.getRandom();
 			if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.STRENGTH.getPos())
 				getBaseCharacterAttributes().setStrength(getBaseCharacterAttributes().getStrength() + 1);
+			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.DEXTERITY.getPos())
+				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getDexterity() + 1);
 			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.INTELLIGENCE.getPos())
 				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getIntelligence() + 1);
-			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.MAGIC_DEFENSE.getPos())
-				getBaseCharacterAttributes().setMagicDefense(getBaseCharacterAttributes().getMagicDefense() + 1);
-			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.PHYSICAL_DEFENSE.getPos())
-				getBaseCharacterAttributes().setPhysicalDefense(getBaseCharacterAttributes().getPhysicalDefense() + 1);
-			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.HEALTH_POINTS.getPos())
-				getBaseCharacterAttributes().setHealthPoints(getBaseCharacterAttributes().getHealthPoints() + 1);
+			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.WISDOM.getPos())
+				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getWisdom() + 1);
+			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.CHARISM.getPos())
+				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getCharism() + 1);
+			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.CONSTITUTION.getPos())
+				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getConstitution() + 1);
+			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.MAGIC_RESISTANCE.getPos())
+				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getMagicResistence() + 1);
+			else if (randomCharacterAttribute.getPos() == CharacterAttributesEnum.PHYSICAL_RESISTANCE.getPos())
+				getBaseCharacterAttributes().setIntelligence(getBaseCharacterAttributes().getPhysicalResistence() + 1);
 		}
 	}
 

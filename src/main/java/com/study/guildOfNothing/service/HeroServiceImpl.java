@@ -4,6 +4,7 @@ import com.study.guildOfNothing.general.configuration.validation.exception.HeroI
 import com.study.guildOfNothing.model.Battle;
 import com.study.guildOfNothing.model.CharacterClass;
 import com.study.guildOfNothing.model.Hero;
+import com.study.guildOfNothing.model.Race;
 import com.study.guildOfNothing.repository.HeroRepository;
 import com.study.guildOfNothing.general.configuration.validation.exception.EntityNonExistentForManipulateException;
 import com.study.guildOfNothing.general.configuration.validation.exception.FormErrorException;
@@ -13,6 +14,7 @@ import com.study.guildOfNothing.model.User;
 import com.study.guildOfNothing.service.onlyInterface.BattleService;
 import com.study.guildOfNothing.service.onlyInterface.CharacterClassService;
 import com.study.guildOfNothing.service.onlyInterface.HeroService;
+import com.study.guildOfNothing.service.onlyInterface.RaceService;
 import com.study.guildOfNothing.service.onlyInterface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,8 @@ public class HeroServiceImpl implements HeroService {
 
 	@Autowired
 	private BattleService battleService;
+	@Autowired
+	private RaceService raceService;
 
 	public Page<Hero> getHeroesByUser(Pageable pageable) {
 		User userLogged = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -52,12 +56,18 @@ public class HeroServiceImpl implements HeroService {
 		if (userLogged.getHeroes().size() == User.LIMIT_HERO_CREATOR)
 			throw new LimitHeroesCreatedException();
 
-		CharacterClass heroClass = characterClassService.getCharacterClass(hero.getCharacterClass().getId());
-		if (heroClass == null)
+		Optional<Race> race = raceService.getRace(hero.getRace().getId());
+		if (!race.isPresent())
+			throw new FormErrorException("raceId", "Invalid race");
+
+		hero.setRace(race.get());
+
+		Optional<CharacterClass> heroClass = characterClassService.getCharacterClass(hero.getCharacterClass().getId());
+		if (!heroClass.isPresent())
 			throw new FormErrorException("characterClassId", "Invalid class");
 
-		hero.setCharacterClass(heroClass);
-		hero.initializeNewCharacterByCharacterClass(heroClass);
+		hero.setCharacterClass(heroClass.get());
+		hero.initializeNewCharacterByRaceAndClass(race.get(), heroClass.get());
 
 		return heroRepository.save(hero);
 	}
@@ -66,7 +76,7 @@ public class HeroServiceImpl implements HeroService {
 	@Transactional
 	public Hero updateHero(Hero hero) throws EntityNonExistentForManipulateException, TryingManipulateAnotherUserStuffException, FormErrorException, HeroInBattleException {
 		Optional<Hero> heroInDatabase = heroRepository.findById(hero.getId());
-		if (heroInDatabase.isEmpty())
+		if (!heroInDatabase.isPresent())
 			throw new EntityNonExistentForManipulateException();
 
 		Hero heroToUpdate = heroInDatabase.get();
@@ -78,22 +88,16 @@ public class HeroServiceImpl implements HeroService {
 		userService.testIfUserTryingManipulateAnotherUser(heroToUpdate.getUser());
 
 		if (!heroToUpdate.checkIfPointsAreDistributedCorrect(hero.getBaseCharacterAttributes()))
-			throw new FormErrorException("heroAttributes", "Invalid heroAttributes, count the points again please");
+			throw new FormErrorException("attributes", "Invalid attributes, count the points again please");
 
-		heroToUpdate.setName(hero.getName());
 		heroToUpdate.distributeAvailablePoints(hero.getBaseCharacterAttributes());
 
 		return heroRepository.save(heroToUpdate);
 	}
 
 	@Override
-	public Hero getHero(Long id) {
-		Optional<Hero> hero = heroRepository.findById(id);
-
-		if (!hero.isPresent())
-			return null;
-
-		return hero.get();
+	public Optional<Hero> getHero(Long id) {
+		return heroRepository.findById(id);
 	}
 
 	@Override

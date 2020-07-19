@@ -14,29 +14,41 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class CharacterAttributesInDto {
 
-	@NotNull(groups = OnUpdate.class)
-	@Min(groups = OnUpdate.class, value = 0)
+	@NotNull
+	@Min(value = 10)
 	private int strength;
 	@NotNull
-	@Min(groups = OnUpdate.class, value = 0)
+	@Min(value = 10)
+	private int dexterity;
+	@NotNull
+	@Min(value = 10)
 	private int intelligence;
 	@NotNull
-	@Min(groups = OnUpdate.class, value = 0)
-	private int magicDefense;
+	@Min(value = 10)
+	private int wisdom;
 	@NotNull
-	@Min(groups = OnUpdate.class, value = 0)
-	private int physicalDefense;
+	@Min(value = 10)
+	private int charism;
 	@NotNull
-	@Min(groups = OnUpdate.class, value = 1)
-	private int healthPoints;
+	@Min(value = 10)
+	private int constitution;
+	@NotNull
+	@Min(value = 10)
+	private int magicResistence;
+	@NotNull
+	@Min(value = 10)
+	private int physicalResistence;
 
 	public CharacterAttributes createCharacterAttributes() {
 		CharacterAttributes characterAttributes = new CharacterAttributes();
 		characterAttributes.setStrength(strength);
+		characterAttributes.setDexterity(dexterity);
 		characterAttributes.setIntelligence(intelligence);
-		characterAttributes.setMagicDefense(magicDefense);
-		characterAttributes.setPhysicalDefense(physicalDefense);
-		characterAttributes.setHealthPoints(healthPoints);
+		characterAttributes.setWisdom(wisdom);
+		characterAttributes.setCharism(charism);
+		characterAttributes.setConstitution(constitution);
+		characterAttributes.setMagicResistence(magicResistence);
+		characterAttributes.setPhysicalResistence(physicalResistence);
 
 		return characterAttributes;
 	}

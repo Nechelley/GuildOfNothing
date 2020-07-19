@@ -18,37 +18,46 @@ public class CharacterAttributes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private int strength;
+	private int dexterity;
 	private int intelligence;
-	private int magicDefense;
-	private int physicalDefense;
-	private int healthPoints;
+	private int wisdom;
+	private int charism;
+	private int constitution;
+	private int magicResistence;
+	private int physicalResistence;
 
-	public static final int INITIAL_TOTAL_POINTS = 45;
+	public static final int INITIAL_TOTAL_POINTS = 85;
 
 	public CharacterAttributes(CharacterAttributes characterAttributes) {
-		this.strength = characterAttributes.strength;
-		this.intelligence = characterAttributes.intelligence;
-		this.magicDefense = characterAttributes.magicDefense;
-		this.physicalDefense = characterAttributes.physicalDefense;
-		this.healthPoints = characterAttributes.healthPoints;
+		strength = characterAttributes.strength;
+		dexterity = characterAttributes.dexterity;
+		intelligence = characterAttributes.intelligence;
+		wisdom = characterAttributes.wisdom;
+		charism = characterAttributes.charism;
+		constitution = characterAttributes.constitution;
+		magicResistence = characterAttributes.magicResistence;
+		physicalResistence = characterAttributes.physicalResistence;
 	}
 
 	public int getTotalPointsUtilized() {
-		return strength + intelligence + magicDefense + physicalDefense + healthPoints;
+		return strength + dexterity + intelligence + wisdom + charism + constitution + magicResistence + physicalResistence;
 	}
 
 	public void distributePointsUsingAnotherCharacterAttributes(CharacterAttributes characterAttributes) {
-		this.strength = characterAttributes.strength;
-		this.intelligence = characterAttributes.intelligence;
-		this.magicDefense = characterAttributes.magicDefense;
-		this.physicalDefense = characterAttributes.physicalDefense;
-		this.healthPoints = characterAttributes.healthPoints;
+		strength = characterAttributes.strength;
+		dexterity = characterAttributes.dexterity;
+		intelligence = characterAttributes.intelligence;
+		wisdom = characterAttributes.wisdom;
+		charism = characterAttributes.charism;
+		constitution = characterAttributes.constitution;
+		magicResistence = characterAttributes.magicResistence;
+		physicalResistence = characterAttributes.physicalResistence;
 	}
 
 	public int getDefenseFor(CharacterAction characterAction) {
-		if (((AttackAction) characterAction).getType().equals(AttackActionTypeEnum.STRENGTH_BASED))
-			return physicalDefense;
-		return magicDefense;
+		if (((AttackAction) characterAction).getType().equals(AttackActionTypeEnum.INTELLIGENCE_BASED))
+			return magicResistence;
+		return physicalResistence;
 	}
 
 }

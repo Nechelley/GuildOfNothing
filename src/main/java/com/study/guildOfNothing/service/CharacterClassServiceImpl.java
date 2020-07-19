@@ -15,19 +15,15 @@ public class CharacterClassServiceImpl implements CharacterClassService {
 	@Autowired
 	private CharacterClassRepository characterClassRepository;
 
-	public CharacterClass getCharacterClass(Long id) {
-		Optional<CharacterClass> characterClass = characterClassRepository.findById(id);
-
-		if (!characterClass.isPresent())
-			return null;
-
-		return characterClass.get();
+	@Override
+	public Optional<CharacterClass> getCharacterClass(Long id) {
+		return characterClassRepository.findById(id);
 	}
 
 	@Override
 	public CharacterClass getRandomCharacterClass() {
 		CharacterClassEnum ramdomCharacterClassEnum = CharacterClassEnum.getRandom();
-		return getCharacterClass(ramdomCharacterClassEnum.getId());
+		return getCharacterClass(ramdomCharacterClassEnum.getId()).get();
 	}
 
 }

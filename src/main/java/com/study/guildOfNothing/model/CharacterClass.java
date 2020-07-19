@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +23,6 @@ public class CharacterClass {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
-	private CharacterAttributes initialCharacterAttributes;
 	@ManyToMany
 	@JoinTable(name="character_class_x_character_action",
 			joinColumns = {@JoinColumn(name="character_class_id")},
@@ -38,7 +35,7 @@ public class CharacterClass {
 
 	public List<CharacterAction> getInitialCharacterActionsCopy() {
 		List<CharacterAction> characterActionsCopy = new ArrayList<>();
-		initialCharacterActions.forEach(characterAction -> characterActionsCopy.add(characterAction));
+		characterActionsCopy.addAll(initialCharacterActions);
 		return characterActionsCopy;
 	}
 }

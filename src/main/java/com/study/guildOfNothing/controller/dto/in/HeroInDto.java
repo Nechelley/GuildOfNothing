@@ -4,6 +4,7 @@ import com.study.guildOfNothing.model.CharacterClass;
 import com.study.guildOfNothing.model.Hero;
 import com.study.guildOfNothing.general.dtoGroup.OnCreate;
 import com.study.guildOfNothing.general.dtoGroup.OnUpdate;
+import com.study.guildOfNothing.model.Race;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,22 +18,26 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class HeroInDto {
 
-	@NotEmpty
-	@Length(min = 5, max = 100)
+	@NotEmpty(groups = OnCreate.class)
+	@Length(groups = OnCreate.class, min = 5, max = 100)
 	private String name;
 	@NotNull(groups = OnCreate.class)
-	private Long heroClassId;
+	private Long raceId;
+	@NotNull(groups = OnCreate.class)
+	private Long classId;
 	@NotNull(groups = OnUpdate.class)
-	private CharacterAttributesInDto heroAttributes;
+	private CharacterAttributesInDto attributes;
 
 	public Hero createHero() {
 		Hero hero = new Hero();
 
 		hero.setName(name);
-		if (heroClassId != null)
-			hero.setCharacterClass(new CharacterClass(heroClassId));
-		if (heroAttributes != null)
-			hero.setBaseCharacterAttributes(heroAttributes.createCharacterAttributes());
+		if (raceId != null)
+			hero.setRace(new Race(raceId));
+		if (classId != null)
+			hero.setCharacterClass(new CharacterClass(classId));
+		if (attributes != null)
+			hero.setBaseCharacterAttributes(attributes.createCharacterAttributes());
 
 		return hero;
 	}

@@ -30,6 +30,8 @@ public class Character {
 	private Long id;
 	private String name;
 	@ManyToOne(optional = false)
+	private Race race;
+	@ManyToOne(optional = false)
 	private CharacterClass characterClass;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private CharacterAttributes baseCharacterAttributes;
@@ -46,25 +48,26 @@ public class Character {
 
 	public static final int INITIAL_LEVEL = 1;
 	public static final int INITIAL_EXPERIENCE_POINTS = 0;
-	public static final int INITIAL_AVAILABLE_ATTRIBUTE_POINTS = 2;
-	public static final int POINTS_EARNED_PER_LEVEL = 2;
-	public static final int LIFE_MULTIPLIER = 10;
+	public static final int INITIAL_AVAILABLE_ATTRIBUTE_POINTS = 0;
+	public static final int POINTS_EARNED_PER_LEVEL = 5;
+	public static final int LIFE_MULTIPLIER = 5;
 	public static final int INITIAL_ACTION_POINTS = 4;
 	public static final int INCREMENTAL_ACTION_POINTS = 4;
 	public static final int MAX_ACTION_POINTS = 10;
 
-	public void initializeNewCharacterByCharacterClass(CharacterClass characterClass) {
+	public void initializeNewCharacterByRaceAndClass(Race race, CharacterClass characterClass) {
+		this.race = race;
 		this.characterClass = characterClass;
 
-		baseCharacterAttributes = new CharacterAttributes(characterClass.getInitialCharacterAttributes());
-
-		characterActions = characterClass.getInitialCharacterActionsCopy();
+		baseCharacterAttributes = new CharacterAttributes(race.getInitialCharacterAttributes());
 
 		level = INITIAL_LEVEL;
 		experiencePoints = INITIAL_EXPERIENCE_POINTS;
 		availableAttributePoints = INITIAL_AVAILABLE_ATTRIBUTE_POINTS;
 		availableActionPoints = INITIAL_ACTION_POINTS;
-		life = baseCharacterAttributes.getHealthPoints()*LIFE_MULTIPLIER;
+		life = baseCharacterAttributes.getConstitution()*LIFE_MULTIPLIER;
+
+		characterActions = characterClass.getInitialCharacterActionsCopy();
 	}
 
 	public boolean checkIfPointsAreDistributedCorrect(CharacterAttributes newCharacterAttributes) {
@@ -73,10 +76,13 @@ public class Character {
 			return false;
 
 		boolean tryingToDiminueSomeAttributeBelowThanInitial = newCharacterAttributes.getStrength() < baseCharacterAttributes.getStrength()
+				|| newCharacterAttributes.getDexterity() < baseCharacterAttributes.getDexterity()
 				|| newCharacterAttributes.getIntelligence() < baseCharacterAttributes.getIntelligence()
-				|| newCharacterAttributes.getMagicDefense() < baseCharacterAttributes.getMagicDefense()
-				|| newCharacterAttributes.getPhysicalDefense() < baseCharacterAttributes.getPhysicalDefense()
-				|| newCharacterAttributes.getHealthPoints() < baseCharacterAttributes.getHealthPoints();
+				|| newCharacterAttributes.getWisdom() < baseCharacterAttributes.getWisdom()
+				|| newCharacterAttributes.getCharism() < baseCharacterAttributes.getCharism()
+				|| newCharacterAttributes.getConstitution() < baseCharacterAttributes.getConstitution()
+				|| newCharacterAttributes.getMagicResistence() < baseCharacterAttributes.getMagicResistence()
+				|| newCharacterAttributes.getPhysicalResistence() < baseCharacterAttributes.getPhysicalResistence();
 		if (tryingToDiminueSomeAttributeBelowThanInitial)
 			return false;
 
@@ -94,7 +100,7 @@ public class Character {
 	}
 
 	private int getTotalPossibleAvailablePointsInThisLevel() {
-		return POINTS_EARNED_PER_LEVEL*level + INITIAL_TOTAL_POINTS;
+		return POINTS_EARNED_PER_LEVEL*(level - 1) + INITIAL_TOTAL_POINTS;
 	}
 
 	public void takeDamage(int damage) {

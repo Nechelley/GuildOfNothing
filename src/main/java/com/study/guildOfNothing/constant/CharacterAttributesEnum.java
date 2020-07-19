@@ -4,11 +4,18 @@ import java.util.Random;
 
 public enum CharacterAttributesEnum {
 
-	STRENGTH(0), INTELLIGENCE(1), MAGIC_DEFENSE(2), PHYSICAL_DEFENSE(3), HEALTH_POINTS(4);
+	STRENGTH(0),
+	DEXTERITY(1),
+	INTELLIGENCE(2),
+	WISDOM(3),
+	CHARISM(4),
+	CONSTITUTION(5),
+	MAGIC_RESISTANCE(6),
+	PHYSICAL_RESISTANCE(7);
 
 	private int pos;
 
-	private static final int TOTAL_ATTRIBUTES = 5;
+	private static final int TOTAL_ATTRIBUTES = 8;
 
 	CharacterAttributesEnum(int pos) {
 		this.pos = pos;

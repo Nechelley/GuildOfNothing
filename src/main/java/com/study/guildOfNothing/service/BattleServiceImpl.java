@@ -53,21 +53,21 @@ public class BattleServiceImpl implements BattleService {
 
 	@Transactional
 	public Battle createBattle(Battle battle) throws FormErrorException, TryingManipulateAnotherUserStuffException {
-		Hero hero = heroService.getHero(battle.getHero().getId());
-		if (hero == null)
+		Optional<Hero> hero = heroService.getHero(battle.getHero().getId());
+		if (!hero.isPresent())
 			throw new FormErrorException("heroId", "Invalid heroId");
-		battle.setHero(hero);
+		battle.setHero(hero.get());
 
-		userService.testIfUserTryingManipulateAnotherUser(hero.getUser());
+		userService.testIfUserTryingManipulateAnotherUser(hero.get().getUser());
 
-		Optional<Battle> battleWithHero = battleRepository.getBattleByHeroIdAndOccurringIsTrue(hero.getId());
+		Optional<Battle> battleWithHero = battleRepository.getBattleByHeroIdAndOccurringIsTrue(hero.get().getId());
 		if (battleWithHero.isPresent())
 			throw new FormErrorException("heroId", "Hero already in a battle");
 
 		Enemy enemy = enemyService.createRandomEnemyForBattle(battle);
 		battle.setEnemy(enemy);
 
-		battle.setCharacterTurn(hero);
+		battle.setCharacterTurn(hero.get());
 		battle.setOccurring(true);
 
 		Battle battleCreatead = battleRepository.save(battle);

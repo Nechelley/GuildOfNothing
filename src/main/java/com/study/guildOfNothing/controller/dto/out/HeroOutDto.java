@@ -1,5 +1,6 @@
 package com.study.guildOfNothing.controller.dto.out;
 
+import com.study.guildOfNothing.model.Character;
 import com.study.guildOfNothing.model.Hero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,25 +17,27 @@ public class HeroOutDto {
 
 	private Long id;
 	private String name;
+	private RaceOutDto race;
 	private CharacterClassOutDto heroClass;
 	private CharacterAttributesOutDto baseHeroAttributes;
 	private int level;
 	private int experiencePoints;
 	private int availableAttributePoints;
 	private int availableActionPoints;
-	private int life;
+	private String life;
 	private List<CharacterActionOutDto> characterActions;
 
 	public HeroOutDto(Hero hero) {
 		id = hero.getId();
 		name = hero.getName();
+		race = new RaceOutDto(hero.getRace());
 		heroClass = new CharacterClassOutDto(hero.getCharacterClass());
 		baseHeroAttributes = new CharacterAttributesOutDto(hero.getBaseCharacterAttributes());
 		level = hero.getLevel();
 		experiencePoints = hero.getExperiencePoints();
 		availableAttributePoints = hero.getAvailableAttributePoints();
 		availableActionPoints = hero.getAvailableActionPoints();
-		life = hero.getLife();
+		life = hero.getLife() + "/" + (hero.getBaseCharacterAttributes().getConstitution()* Character.LIFE_MULTIPLIER);
 		characterActions = CharacterActionOutDto.createDtoFromCharacterActionList(hero.getCharacterActions());
 	}
 

@@ -62,20 +62,36 @@ values(7);
 insert into intelligence_based_attack(character_action_id)
 values(8);
 
---insert default classes
-insert into character_attributes(strength, intelligence, magic_defense, physical_defense, health_points)
-values(10, 5, 5, 10, 15);
-insert into character_attributes(strength, intelligence, magic_defense, physical_defense, health_points)
-values(5, 15, 10, 5, 10);
-insert into character_attributes(strength, intelligence, magic_defense, physical_defense, health_points)
-values(5, 10, 10, 5, 15);
+--insert default races
+insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
+values(11, 11, 11, 10, 11, 11, 10, 10);
+insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
+values(10, 13, 12, 10, 10, 10, 10, 10);
+insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
+values(10, 10, 13, 12, 10, 10, 10, 10);
+insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
+values(12, 10, 10, 10, 10, 13, 10, 10);
 
-insert into character_class(name, initial_character_attributes_id)
-values('Warrior', 1);
-insert into character_class(name, initial_character_attributes_id)
-values('Mage', 2);
-insert into character_class(name, initial_character_attributes_id)
-values('Cleric', 3);
+insert into race(name, initial_character_attributes_id)
+values('Human', 1);
+insert into race(name, initial_character_attributes_id)
+values('Elf', 2);
+insert into race(name, initial_character_attributes_id)
+values('Faerie', 3);
+insert into race(name, initial_character_attributes_id)
+values('Dwarf', 4);
+
+--insert default classes
+insert into character_class(name)
+values('Warrior');
+insert into character_class(name)
+values('Mage');
+insert into character_class(name)
+values('Cleric');
+insert into character_class(name)
+values('Archer');
+insert into character_class(name)
+values('Assassin');
 
 insert into character_class_x_character_action(character_class_id, character_action_id)
 values(1, 1);
@@ -111,15 +127,15 @@ insert into character_class_x_character_action(character_class_id, character_act
 values(3, 8);
 
 --insert some characters for initial users
-insert into character_attributes(strength, intelligence, magic_defense, physical_defense, health_points)
-values(10, 5, 5, 10, 15);
-insert into character_attributes(strength, intelligence, magic_defense, physical_defense, health_points)
-values(5, 15, 10, 5, 10);
+insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
+values(11, 11, 11, 10, 11, 11, 10, 10);
+insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
+values(10, 10, 13, 12, 10, 10, 10, 10);
 
-insert into character(name, character_class_id, base_character_attributes_id, level, experience_points, available_attribute_points, available_action_points, life)
-values('Warrior Joe', 1, 4, 1, 0, 2, 4, 150);
-insert into character(name, character_class_id, base_character_attributes_id, level, experience_points, available_attribute_points, available_action_points, life)
-values('Duck Mage', 2, 5, 1, 0, 2, 4, 100);
+insert into character(name, character_class_id, base_character_attributes_id, level, experience_points, available_attribute_points, available_action_points, life, race_id)
+values('Warrior Joe', 1, 5, 1, 0, 2, 4, 55, 1);
+insert into character(name, character_class_id, base_character_attributes_id, level, experience_points, available_attribute_points, available_action_points, life, race_id)
+values('Duck Mage', 2, 6, 1, 0, 0, 4, 50, 3);
 
 insert into character_x_character_action(character_id, character_action_id)
 values(1, 1);
