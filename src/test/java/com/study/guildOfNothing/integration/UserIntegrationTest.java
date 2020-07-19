@@ -64,7 +64,7 @@ class UserIntegrationTest {
 
 	private static void initializeUserInDatabase() {
 		userInDatabase = new User();
-		userInDatabase.setId(3L);
+		userInDatabase.setId(4L);
 		userInDatabase.setName("Basic name");
 		userInDatabase.setEmail("basicTest@basicTest.basicTest");
 		userInDatabase.setPassword("123");
