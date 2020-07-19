@@ -25,7 +25,7 @@ public class CharacterAction {
 	public static final int EXIT_ID = 1;
 	public static final int PASS_TIME_ID = 2;
 
-	public boolean isSpecialAction() {
+	public boolean isStandartAction() {
 		return id == EXIT_ID || id == PASS_TIME_ID;
 	}
 

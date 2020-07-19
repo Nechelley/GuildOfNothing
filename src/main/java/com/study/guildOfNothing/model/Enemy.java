@@ -44,7 +44,7 @@ public class Enemy extends Character {
 
 	public CharacterAction choiceRandomCharacterAction() {
 		List<CharacterAction> availableActions = getCharacterActions().stream()
-				.filter(characterAction -> !characterAction.isSpecialAction() && characterAction.getCostActionPoints() <= getAvailableActionPoints())
+				.filter(characterAction -> !characterAction.isStandartAction() && characterAction.getCostActionPoints() <= getAvailableActionPoints())
 				.collect(Collectors.toList());
 		if (availableActions.isEmpty())
 			return null;

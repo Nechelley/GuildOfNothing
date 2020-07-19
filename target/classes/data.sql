@@ -48,20 +48,6 @@ values('INTELLIGENCE_BASED', 25, 7);
 insert into attack_action(type, damage, character_action_id)
 values('INTELLIGENCE_BASED', 70, 8);
 
-insert into strength_based_attack(character_action_id)
-values(3);
-insert into strength_based_attack(character_action_id)
-values(4);
-insert into strength_based_attack(character_action_id)
-values(5);
-
-insert into intelligence_based_attack(character_action_id)
-values(6);
-insert into intelligence_based_attack(character_action_id)
-values(7);
-insert into intelligence_based_attack(character_action_id)
-values(8);
-
 --insert default races
 insert into character_attributes(strength, dexterity, intelligence, wisdom, charism, constitution, magic_resistence, physical_resistence)
 values(11, 11, 11, 10, 11, 11, 10, 10);

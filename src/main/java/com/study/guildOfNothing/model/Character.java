@@ -112,7 +112,7 @@ public class Character {
 	public boolean hasMoreActions() {
 		boolean availableAction = false;
 		for (CharacterAction characterAction: characterActions)
-			if (!characterAction.isSpecialAction() && characterAction.getCostActionPoints() <= availableActionPoints)
+			if (!characterAction.isStandartAction() && characterAction.getCostActionPoints() <= availableActionPoints)
 				availableAction = true;
 
 		return availableAction;
