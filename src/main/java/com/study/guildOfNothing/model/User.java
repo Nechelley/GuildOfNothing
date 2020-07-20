@@ -80,4 +80,9 @@ public class User implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "";//<TODO> i did this to fix a bug, but i will nedd create a better string
+	}
+
 }

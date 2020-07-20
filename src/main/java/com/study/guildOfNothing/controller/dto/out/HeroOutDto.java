@@ -26,6 +26,7 @@ public class HeroOutDto {
 	private int availableActionPoints;
 	private String life;
 	private List<CharacterActionOutDto> characterActions;
+	private List<ItemOutDto> items;
 
 	public HeroOutDto(Hero hero) {
 		id = hero.getId();
@@ -39,6 +40,7 @@ public class HeroOutDto {
 		availableActionPoints = hero.getAvailableActionPoints();
 		life = hero.getLife() + "/" + (hero.getBaseCharacterAttributes().getConstitution()* Character.LIFE_MULTIPLIER);
 		characterActions = CharacterActionOutDto.createDtoFromCharacterActionList(hero.getCharacterActions());
+		items = ItemOutDto.createDtoFromItemList(hero.getItems());
 	}
 
 	public static Page<HeroOutDto> createDtoFromHeroesList(Page<Hero> heroes) {

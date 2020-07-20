@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
 
@@ -45,6 +46,8 @@ public class Character {
 	private List<CharacterAction> characterActions;
 	private int availableActionPoints;
 	private int life;
+	@OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
+	private List<Item> items;
 
 	public static final int INITIAL_LEVEL = 1;
 	public static final int INITIAL_EXPERIENCE_POINTS = 0;

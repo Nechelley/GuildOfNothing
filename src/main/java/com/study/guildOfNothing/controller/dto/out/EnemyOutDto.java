@@ -22,6 +22,7 @@ public class EnemyOutDto {
 	private int availableActionPoints;
 	private String life;
 	private List<CharacterActionOutDto> characterActions;
+	private List<ItemOutDto> items;
 
 	public EnemyOutDto(Enemy enemy) {
 		id = enemy.getId();
@@ -33,6 +34,7 @@ public class EnemyOutDto {
 		availableActionPoints = enemy.getAvailableActionPoints();
 		life = enemy.getLife() + "/" + (enemy.getBaseCharacterAttributes().getConstitution()* Character.LIFE_MULTIPLIER);
 		characterActions = CharacterActionOutDto.createDtoFromCharacterActionList(enemy.getCharacterActions());
+		items = ItemOutDto.createDtoFromItemList(enemy.getItems());
 	}
 
 }

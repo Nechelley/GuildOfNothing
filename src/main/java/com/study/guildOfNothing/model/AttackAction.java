@@ -2,14 +2,12 @@ package com.study.guildOfNothing.model;
 
 import com.study.guildOfNothing.constant.AttackActionTypeEnum;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @PrimaryKeyJoinColumn(name = "character_action_id")
 @Data

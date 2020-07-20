@@ -1,10 +1,9 @@
 package com.study.guildOfNothing.repository;
 
-import com.study.guildOfNothing.model.CharacterClass;
+import com.study.guildOfNothing.model.HandEquipment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CharacterClassRepository extends JpaRepository<CharacterClass, Long> {
-
+public interface HandEquipmentRepository extends JpaRepository<HandEquipment, Long> {
 }

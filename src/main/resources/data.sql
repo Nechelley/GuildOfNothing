@@ -150,6 +150,13 @@ values(1, 1);
 insert into hero(character_id, user_id)
 values(2, 2);
 
+insert into item(name, weight, character_id)
+values('Iron Sword', 4.0, 1);
+insert into equipment(item_id, part_of_equipment, equipped)
+values(1, 'RIGHT_HAND', 1);
+insert into hand_equipment(item_id, magic_power, physical_power, two_hand_equipment)
+values(1, 0, 5, 1);
+
 --begin only for automated test
 insert into user(email, password, name)
 values ('adminTest@adminTest.adminTest', '$2a$10$RBq4e6nSLa0BbsILq7uile6i27EhAN/UAJlGow8PRJK17s30sXmX2', 'Admin Name');
