@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -21,6 +22,7 @@ public class CharacterAction {
 	private Long id;
 	private String name;
 	private int costActionPoints;
+	private List<Character> targets;
 
 	public static final int EXIT_ID = 1;
 	public static final int PASS_TIME_ID = 2;

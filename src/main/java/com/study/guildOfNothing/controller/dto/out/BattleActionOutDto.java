@@ -1,7 +1,6 @@
 package com.study.guildOfNothing.controller.dto.out;
 
-import com.study.guildOfNothing.model.AttackAction;
-import com.study.guildOfNothing.model.CharacterAction;
+import com.study.guildOfNothing.model.BattleAction;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,7 @@ public class CharacterActionOutDto {
 	private String type;
 	private int damage;
 
-	public CharacterActionOutDto(CharacterAction characterAction) {
+	public CharacterActionOutDto(BattleAction characterAction) {
 		id = characterAction.getId();
 		name = characterAction.getName();
 		costActionPoints = characterAction.getCostActionPoints();
@@ -30,7 +29,7 @@ public class CharacterActionOutDto {
 		}
 	}
 
-	public static List<CharacterActionOutDto> createDtoFromCharacterActionList(List<CharacterAction> characterActions) {
+	public static List<CharacterActionOutDto> createDtoFromCharacterActionList(List<BattleAction> characterActions) {
 		List<CharacterActionOutDto> characterActionOutDtos = new ArrayList<>();
 		characterActions.forEach(
 				characterAction -> characterActionOutDtos.add(new CharacterActionOutDto(characterAction))
