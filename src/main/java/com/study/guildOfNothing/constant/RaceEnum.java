@@ -20,8 +20,7 @@ public enum RaceEnum {
 	}
 
 	public static RaceEnum getRandom() {
-		Random random = new Random();
-		int ramdomId = random.nextInt(TOTAL_RACES) + 1;
+		int ramdomId = (new Random()).nextInt(TOTAL_RACES) + 1;
 
 		for (RaceEnum raceEnum: RaceEnum.values())
 			if (ramdomId == raceEnum.getId())

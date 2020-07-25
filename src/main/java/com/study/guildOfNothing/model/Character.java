@@ -1,5 +1,6 @@
 package com.study.guildOfNothing.model;
 
+import com.study.guildOfNothing.general.configuration.validation.exception.NotSufficientActionPointsException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,13 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.study.guildOfNothing.model.CharacterAttributes.INITIAL_TOTAL_POINTS;
 
@@ -39,15 +38,13 @@ public class Character {
 	private int level;
 	private int experiencePoints;
 	private int availableAttributePoints;
-	@ManyToMany
-	@JoinTable(name="character_x_character_action",
-			joinColumns = {@JoinColumn(name="character_id")},
-			inverseJoinColumns = {@JoinColumn(name="character_action_id")})
-	private List<CharacterAction> characterActions;
+	@OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
+	private List<CharacterBattleActionRelationship> battleActions;
 	private int availableActionPoints;
 	private int life;
 	@OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
 	private List<Item> items;
+	private boolean hero;
 
 	public static final int INITIAL_LEVEL = 1;
 	public static final int INITIAL_EXPERIENCE_POINTS = 0;
@@ -57,6 +54,10 @@ public class Character {
 	public static final int INITIAL_ACTION_POINTS = 4;
 	public static final int INCREMENTAL_ACTION_POINTS = 4;
 	public static final int MAX_ACTION_POINTS = 10;
+
+	public Character(Long id) {
+		this.id = id;
+	}
 
 	public void initializeNewCharacterByRaceAndClass(Race race, CharacterClass characterClass) {
 		this.race = race;
@@ -70,7 +71,7 @@ public class Character {
 		availableActionPoints = INITIAL_ACTION_POINTS;
 		life = baseCharacterAttributes.getConstitution()*LIFE_MULTIPLIER;
 
-		characterActions = characterClass.getInitialCharacterActionsCopy();
+		battleActions = characterClass.getInitialBattleActionsForNewCharacter(this);
 	}
 
 	public boolean checkIfPointsAreDistributedCorrect(CharacterAttributes newCharacterAttributes) {
@@ -86,10 +87,7 @@ public class Character {
 				|| newCharacterAttributes.getConstitution() < baseCharacterAttributes.getConstitution()
 				|| newCharacterAttributes.getMagicResistence() < baseCharacterAttributes.getMagicResistence()
 				|| newCharacterAttributes.getPhysicalResistence() < baseCharacterAttributes.getPhysicalResistence();
-		if (tryingToDiminueSomeAttributeBelowThanInitial)
-			return false;
-
-		return true;
+		return !tryingToDiminueSomeAttributeBelowThanInitial;
 	}
 
 	public void distributeAvailablePoints(CharacterAttributes newCharacterAttributes) {
@@ -113,30 +111,64 @@ public class Character {
 	}
 
 	public boolean hasMoreActions() {
-		boolean availableAction = false;
-		for (CharacterAction characterAction: characterActions)
-			if (!characterAction.isStandartAction() && characterAction.getCostActionPoints() <= availableActionPoints)
-				availableAction = true;
+		for (CharacterBattleActionRelationship characterBattleActionRelationship: battleActions)
+			if (characterBattleActionRelationship.getBattleAction().isAlreadyToBeUsedAndNotStandart(this))
+				return true;
 
-		return availableAction;
+		return false;
 	}
 
-	public void payActionCostFor(CharacterAction characterAction) {
-		availableActionPoints -= characterAction.getCostActionPoints();
+	public void payActionCostFor(BattleAction battleAction) throws NotSufficientActionPointsException {
+		if (battleAction.getCostActionPoints() > availableActionPoints)
+			throw new NotSufficientActionPointsException();
+
+		availableActionPoints -= battleAction.getCostActionPoints();
 	}
 
 	public void doNextTurnMaintenance() {
 		availableActionPoints += INCREMENTAL_ACTION_POINTS;
 		if (availableActionPoints > MAX_ACTION_POINTS)
 			availableActionPoints = MAX_ACTION_POINTS;
+
+		int cooldown;
+		for (CharacterBattleActionRelationship characterBattleActionRelationship: battleActions) {
+			cooldown = characterBattleActionRelationship.getActualCooldownTime();
+			if (cooldown != 0)
+				characterBattleActionRelationship.setActualCooldownTime(cooldown - 1);
+		}
 	}
 
-	public boolean hasCharacterAction(CharacterAction characterAction) {
-		return characterActions.contains(characterAction);
+	public boolean hasCharacterAction(BattleAction battleAction) {
+		for (CharacterBattleActionRelationship characterBattleActionRelationship: battleActions) {
+			if (characterBattleActionRelationship.getBattleAction().equals(battleAction))
+				return true;
+		}
+		return false;
 	}
 
-	public boolean hasActionPointsEnoughForCharacterAction(CharacterAction characterAction) {
-		return availableActionPoints >= characterAction.getCostActionPoints();
+	public CharacterBattleActionRelationship getRelationshipUsingBattleAction(BattleAction battleAction) {
+		return battleActions.stream()
+				.filter(characterBattleActionRelationship -> characterBattleActionRelationship.getBattleAction().equals(battleAction))
+				.findFirst()
+				.get();
+	}
+
+	public List<HandEquipment> getHandEquipments() {
+		return items.stream()
+				.filter(item -> (item instanceof HandEquipment))
+				.collect(Collectors.toList())
+				.stream()
+				.map(item -> (HandEquipment) item)
+				.collect(Collectors.toList());
+	}
+
+	public boolean isDead() {
+		return life == 0;
+	}
+
+	@Override
+	public String toString() {
+		return "";//<TODO> i did this to fix a bug, but i will nedd create a better string
 	}
 
 }

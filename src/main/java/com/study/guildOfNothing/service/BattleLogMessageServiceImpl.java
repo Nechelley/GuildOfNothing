@@ -11,9 +11,14 @@ import javax.transaction.Transactional;
 @Service
 public class BattleLogMessageServiceImpl implements BattleLogMessageService {
 
-	@Autowired
-	private BattleLogMessageRepository battleLogMessageRepository;
+	private final BattleLogMessageRepository battleLogMessageRepository;
 
+	@Autowired
+	public BattleLogMessageServiceImpl(BattleLogMessageRepository battleLogMessageRepository) {
+		this.battleLogMessageRepository = battleLogMessageRepository;
+	}
+
+	@Override
 	@Transactional
 	public BattleLogMessage createBattleLogMessage(BattleLogMessage battleLogMessage) {
 		return battleLogMessageRepository.save(battleLogMessage);

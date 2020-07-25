@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class Battle {
 	@ManyToOne
 	private Hero hero;
 	@OneToMany(mappedBy = "battle", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<BattleLogMessage> battleLogMessages;
+	private List<BattleLogMessage> battleLogMessages = new ArrayList<>();
 	@OneToOne
 	private Enemy enemy;
 	@OneToOne
@@ -35,6 +36,11 @@ public class Battle {
 
 	public Battle(Long id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "";//<TODO> i did this to fix a bug, but i will nedd create a better string
 	}
 
 }

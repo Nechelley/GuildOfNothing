@@ -11,8 +11,7 @@ public class Dice {
 	}
 
 	public int rollDice() {
-		Random random = new Random();
-		return random.nextInt(numberOfSides) + 1;
+		return (new Random()).nextInt(numberOfSides) + 1;
 	}
 
 }

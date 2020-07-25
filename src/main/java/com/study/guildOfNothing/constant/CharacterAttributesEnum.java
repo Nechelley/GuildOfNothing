@@ -26,8 +26,7 @@ public enum CharacterAttributesEnum {
 	}
 
 	public static CharacterAttributesEnum getRandom() {
-		Random random = new Random();
-		int ramdomPos = random.nextInt(TOTAL_ATTRIBUTES);
+		int ramdomPos = (new Random()).nextInt(TOTAL_ATTRIBUTES);
 
 		for (CharacterAttributesEnum characterAttributesEnum: CharacterAttributesEnum.values())
 			if (characterAttributesEnum.getPos() == ramdomPos)

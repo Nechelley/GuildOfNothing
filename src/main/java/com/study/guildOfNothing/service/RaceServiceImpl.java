@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service
 public class RaceServiceImpl implements RaceService {
 
+	private final RaceRepository raceRepository;
+
 	@Autowired
-	private RaceRepository raceRepository;
+	public RaceServiceImpl(RaceRepository raceRepository) {
+		this.raceRepository = raceRepository;
+	}
 
 	@Override
 	public Optional<Race> getRace(Long id) {
@@ -23,7 +27,8 @@ public class RaceServiceImpl implements RaceService {
 	@Override
 	public Race getRandomRace() {
 		RaceEnum ramdomRaceEnum = RaceEnum.getRandom();
-		return getRace(ramdomRaceEnum.getId()).get();
+		//return getRace(ramdomRaceEnum.getId()).get();
+		return getRace(1L).get();//<TODO> Only for dev tests
 	}
 
 }

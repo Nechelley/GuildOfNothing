@@ -3,10 +3,12 @@ package com.study.guildOfNothing.service.onlyInterface;
 import com.study.guildOfNothing.general.configuration.validation.exception.EntityNonExistentForManipulateException;
 import com.study.guildOfNothing.general.configuration.validation.exception.FormErrorException;
 import com.study.guildOfNothing.general.configuration.validation.exception.TryingManipulateAnotherUserStuffException;
+import com.study.guildOfNothing.model.Character;
 import com.study.guildOfNothing.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {

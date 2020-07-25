@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service
 public class CharacterClassServiceImpl implements CharacterClassService {
 
+	private final CharacterClassRepository characterClassRepository;
+
 	@Autowired
-	private CharacterClassRepository characterClassRepository;
+	public CharacterClassServiceImpl(CharacterClassRepository characterClassRepository) {
+		this.characterClassRepository = characterClassRepository;
+	}
 
 	@Override
 	public Optional<CharacterClass> getCharacterClass(Long id) {
@@ -23,7 +27,8 @@ public class CharacterClassServiceImpl implements CharacterClassService {
 	@Override
 	public CharacterClass getRandomCharacterClass() {
 		CharacterClassEnum ramdomCharacterClassEnum = CharacterClassEnum.getRandom();
-		return getCharacterClass(ramdomCharacterClassEnum.getId()).get();
+		//return getCharacterClass(ramdomCharacterClassEnum.getId()).get();
+		return getCharacterClass(1L).get();//<TODO> Only for dev tests
 	}
 
 }

@@ -19,16 +19,12 @@ public class BattleLogMessageOutDto {
 		text = battleLogMessage.getText();
 	}
 
-	public String getText() {
-		return text;
-	}
-
 	public static List<BattleLogMessageOutDto> createDtoFromBattleLogMessageList(List<BattleLogMessage> battleLogMessages) {
-		List<BattleLogMessageOutDto> BattleLogMessageOutDtos = new ArrayList<>();
+		List<BattleLogMessageOutDto> battleLogMessageOutDtos = new ArrayList<>();
 		battleLogMessages.forEach(
-				battleLogMessage -> BattleLogMessageOutDtos.add(new BattleLogMessageOutDto(battleLogMessage))
+				battleLogMessage -> battleLogMessageOutDtos.add(new BattleLogMessageOutDto(battleLogMessage))
 		);
-		return BattleLogMessageOutDtos;
+		return battleLogMessageOutDtos;
 	}
 
 }

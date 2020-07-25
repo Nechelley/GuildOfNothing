@@ -1,7 +1,6 @@
 package com.study.guildOfNothing.service;
 
 import com.study.guildOfNothing.general.configuration.validation.exception.HeroInBattleException;
-import com.study.guildOfNothing.model.Battle;
 import com.study.guildOfNothing.model.CharacterClass;
 import com.study.guildOfNothing.model.Hero;
 import com.study.guildOfNothing.model.Race;
@@ -11,7 +10,6 @@ import com.study.guildOfNothing.general.configuration.validation.exception.FormE
 import com.study.guildOfNothing.general.configuration.validation.exception.LimitHeroesCreatedException;
 import com.study.guildOfNothing.general.configuration.validation.exception.TryingManipulateAnotherUserStuffException;
 import com.study.guildOfNothing.model.User;
-import com.study.guildOfNothing.service.onlyInterface.BattleService;
 import com.study.guildOfNothing.service.onlyInterface.CharacterClassService;
 import com.study.guildOfNothing.service.onlyInterface.HeroService;
 import com.study.guildOfNothing.service.onlyInterface.RaceService;
@@ -28,20 +26,21 @@ import java.util.Optional;
 @Service
 public class HeroServiceImpl implements HeroService {
 
-	@Autowired
-	private HeroRepository heroRepository;
+	private final HeroRepository heroRepository;
+
+	private final CharacterClassService characterClassService;
+	private final UserService userService;
+	private final RaceService raceService;
 
 	@Autowired
-	private CharacterClassService characterClassService;
+	public HeroServiceImpl(HeroRepository heroRepository, CharacterClassService characterClassService, UserService userService, RaceService raceService) {
+		this.heroRepository = heroRepository;
+		this.characterClassService = characterClassService;
+		this.userService = userService;
+		this.raceService = raceService;
+	}
 
-	@Autowired
-	private UserService userService;
-
-	@Autowired
-	private BattleService battleService;
-	@Autowired
-	private RaceService raceService;
-
+	@Override
 	public Page<Hero> getHeroesByUser(Pageable pageable) {
 		User userLogged = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return heroRepository.findAllByUserId(userLogged.getId(), pageable);
@@ -81,8 +80,8 @@ public class HeroServiceImpl implements HeroService {
 
 		Hero heroToUpdate = heroInDatabase.get();
 
-		Battle battleWithHero = battleService.getBattleWithHeroOcurring(hero.getId());
-		if (battleWithHero != null)
+		Optional<Hero> heroInBattle = heroRepository.getHeroInBattle(hero.getId());
+		if (heroInBattle.isPresent())
 			throw new HeroInBattleException();
 
 		userService.testIfUserTryingManipulateAnotherUser(heroToUpdate.getUser());

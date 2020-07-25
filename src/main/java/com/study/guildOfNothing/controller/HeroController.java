@@ -35,8 +35,12 @@ import java.net.URI;
 @Validated
 public class HeroController {
 
+	private final HeroService heroService;
+
 	@Autowired
-	private HeroService heroService;
+	public HeroController(HeroService heroService) {
+		this.heroService = heroService;
+	}
 
 	@GetMapping
 	public Page<HeroOutDto> getAllByUser(@PageableDefault(sort = "name", direction = Direction.ASC) Pageable pageable) {

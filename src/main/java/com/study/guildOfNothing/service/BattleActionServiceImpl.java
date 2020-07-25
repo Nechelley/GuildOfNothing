@@ -1,18 +1,22 @@
 package com.study.guildOfNothing.service;
 
 import com.study.guildOfNothing.model.BattleAction;
-import com.study.guildOfNothing.repository.CharacterActionRepository;
-import com.study.guildOfNothing.service.onlyInterface.CharacterActionService;
+import com.study.guildOfNothing.repository.BattleActionRepository;
+import com.study.guildOfNothing.service.onlyInterface.BattleActionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CharacterActionServiceImpl implements CharacterActionService {
+public class BattleActionServiceImpl implements BattleActionService {
+
+	private final BattleActionRepository characterActionRepository;
 
 	@Autowired
-	private CharacterActionRepository characterActionRepository;
+	public BattleActionServiceImpl(BattleActionRepository characterActionRepository) {
+		this.characterActionRepository = characterActionRepository;
+	}
 
 	@Override
 	public BattleAction getCharacterAction(Long id) {

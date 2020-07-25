@@ -20,8 +20,7 @@ public enum CharacterClassEnum {
 	}
 
 	public static CharacterClassEnum getRandom() {
-		Random random = new Random();
-		int ramdomId = random.nextInt(TOTAL_CLASSES) + 1;
+		int ramdomId = (new Random()).nextInt(TOTAL_CLASSES) + 1;
 
 		for (CharacterClassEnum characterClassEnum: CharacterClassEnum.values())
 			if (ramdomId == characterClassEnum.getId())

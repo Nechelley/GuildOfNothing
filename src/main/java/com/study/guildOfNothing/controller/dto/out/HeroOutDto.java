@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,7 +24,7 @@ public class HeroOutDto {
 	private int availableAttributePoints;
 	private int availableActionPoints;
 	private String life;
-	private List<CharacterActionOutDto> characterActions;
+	private List<BattleActionOutDto> battleActions;
 	private List<ItemOutDto> items;
 
 	public HeroOutDto(Hero hero) {
@@ -39,7 +38,7 @@ public class HeroOutDto {
 		availableAttributePoints = hero.getAvailableAttributePoints();
 		availableActionPoints = hero.getAvailableActionPoints();
 		life = hero.getLife() + "/" + (hero.getBaseCharacterAttributes().getConstitution()* Character.LIFE_MULTIPLIER);
-		characterActions = CharacterActionOutDto.createDtoFromCharacterActionList(hero.getCharacterActions());
+		battleActions = BattleActionOutDto.createDtoFromBattleActionList(hero.getBattleActions());
 		items = ItemOutDto.createDtoFromItemList(hero.getItems());
 	}
 

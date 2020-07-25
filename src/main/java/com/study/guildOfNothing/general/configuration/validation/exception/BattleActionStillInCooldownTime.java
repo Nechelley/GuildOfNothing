@@ -1,4 +1,4 @@
 package com.study.guildOfNothing.general.configuration.validation.exception;
 
-public class BattleActionStillInCooldownTime {
+public class BattleActionStillInCooldownTime extends Exception {
 }

@@ -58,8 +58,7 @@ class AdminUserIntegrationTest {
 		headersNotAuthorized = new HttpHeaders();
 
 		adminIdNotExistent = 5000L;
-		Random random = new Random();
-		randomNumberForUpdate = random.nextInt(42);
+		randomNumberForUpdate = (new Random()).nextInt(42);
 	}
 
 	private static void initializeAdminUserInDatabase() {

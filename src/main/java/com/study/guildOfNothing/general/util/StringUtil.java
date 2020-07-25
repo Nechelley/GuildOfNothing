@@ -2,6 +2,10 @@ package com.study.guildOfNothing.general.util;
 
 public class StringUtil {
 
+	private StringUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static String getTextEndedAfterLastCharacter(String text, String character) {
 		int foundDotPosition = -1;
 		String[] splittedText = text.split("");

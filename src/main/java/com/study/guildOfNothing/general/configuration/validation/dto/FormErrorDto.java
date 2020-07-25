@@ -1,5 +1,8 @@
 package com.study.guildOfNothing.general.configuration.validation.dto;
 
+import lombok.Getter;
+
+@Getter
 public class FormErrorDto {
 
 	private String field;
@@ -8,14 +11,6 @@ public class FormErrorDto {
 	public FormErrorDto(String field, String error) {
 		this.field = field;
 		this.error = error;
-	}
-
-	public String getField() {
-		return field;
-	}
-
-	public String getError() {
-		return error;
 	}
 
 }

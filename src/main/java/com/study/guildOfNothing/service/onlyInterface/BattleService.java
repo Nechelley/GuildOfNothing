@@ -4,16 +4,18 @@ import com.study.guildOfNothing.general.configuration.validation.exception.Battl
 import com.study.guildOfNothing.general.configuration.validation.exception.FormErrorException;
 import com.study.guildOfNothing.general.configuration.validation.exception.TryingManipulateAnotherUserStuffException;
 import com.study.guildOfNothing.model.Battle;
-import com.study.guildOfNothing.model.CharacterAction;
+import com.study.guildOfNothing.model.BattleAction;
+
+import java.util.Optional;
 
 public interface BattleService {
 
 	Battle createBattle(Battle battle) throws FormErrorException, TryingManipulateAnotherUserStuffException;
 
-	Battle getBattle(Long id);
+	Optional<Battle> getBattle(Long id);
 
-	Battle doCharacterActionOnBattle(Battle battle, CharacterAction characterAction) throws TryingManipulateAnotherUserStuffException, BattleNotOccurringException, FormErrorException;
+	Battle doBattleActionOnBattle(Battle battle, BattleAction battleAction) throws TryingManipulateAnotherUserStuffException, BattleNotOccurringException, FormErrorException;
 
-	Battle getBattleWithHeroOcurring(Long heroId);
+	Optional<Battle> getBattleWithHeroOcurring(Long heroId);
 
 }

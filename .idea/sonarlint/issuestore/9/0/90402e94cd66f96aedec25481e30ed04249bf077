@@ -1,2 +1,11 @@
 
+_
+java:S1854"BRemove this useless assignment to local variable "ramdomRaceEnum".(π‹¬ή8–Ό››·.
 o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(υ½Ή
+P
+java:S1481"3Remove this unused "ramdomRaceEnum" local variable.(π‹¬ή8–Ό››·.
+Y
+java:S3655"7Call "Optional#isPresent()" before accessing the value.(Ò³ψÿÿÿÿ8ύο›·.
+]	java:S125"<This block of commented-out lines of code should be removed.(‚ƒΡ‰ωÿÿÿÿ8–Ό››·.
+T
+java:S1135"2Complete the task associated to this TODO comment.(Ò³ψÿÿÿÿ8Η„›·.

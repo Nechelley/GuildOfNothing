@@ -1,6 +1,5 @@
 package com.study.guildOfNothing.model;
 
-import com.study.guildOfNothing.constant.AttackActionTypeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,14 +28,7 @@ public class CharacterAttributes {
 	public static final int INITIAL_TOTAL_POINTS = 85;
 
 	public CharacterAttributes(CharacterAttributes characterAttributes) {
-		strength = characterAttributes.strength;
-		dexterity = characterAttributes.dexterity;
-		intelligence = characterAttributes.intelligence;
-		wisdom = characterAttributes.wisdom;
-		charism = characterAttributes.charism;
-		constitution = characterAttributes.constitution;
-		magicResistence = characterAttributes.magicResistence;
-		physicalResistence = characterAttributes.physicalResistence;
+		copyAllUnlessId(characterAttributes);
 	}
 
 	public int getTotalPointsUtilized() {
@@ -44,6 +36,10 @@ public class CharacterAttributes {
 	}
 
 	public void distributePointsUsingAnotherCharacterAttributes(CharacterAttributes characterAttributes) {
+		copyAllUnlessId(characterAttributes);
+	}
+
+	private void copyAllUnlessId(CharacterAttributes characterAttributes) {
 		strength = characterAttributes.strength;
 		dexterity = characterAttributes.dexterity;
 		intelligence = characterAttributes.intelligence;
@@ -52,12 +48,6 @@ public class CharacterAttributes {
 		constitution = characterAttributes.constitution;
 		magicResistence = characterAttributes.magicResistence;
 		physicalResistence = characterAttributes.physicalResistence;
-	}
-
-	public int getDefenseFor(CharacterAction characterAction) {
-		if (((AttackAction) characterAction).getType().equals(AttackActionTypeEnum.INTELLIGENCE_BASED))
-			return magicResistence;
-		return physicalResistence;
 	}
 
 }

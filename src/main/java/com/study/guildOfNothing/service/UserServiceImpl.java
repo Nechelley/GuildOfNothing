@@ -19,17 +19,24 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	@Override
 	public Page<User> getUsers(Pageable pageable) {
 		return userRepository.findAll(pageable);
 	}
 
+	@Override
 	public Optional<User> getUser(Long id) {
 		return userRepository.findById(id);
 	}
 
+	@Override
 	@Transactional
 	public User createUser(User user) throws FormErrorException {
 		user.setPassword(PasswordEncrypter.getEncrypter().encode(user.getPassword()));
@@ -47,6 +54,7 @@ public class UserServiceImpl implements UserService {
 			throw new FormErrorException("email", "email already registered");
 	}
 
+	@Override
 	@Transactional
 	public User updateUser(User user) throws TryingManipulateAnotherUserStuffException, EntityNonExistentForManipulateException {
 		Optional<User> userInDatabase = userRepository.findById(user.getId());
@@ -63,6 +71,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(userToUpdate);
 	}
 
+	@Override
 	public void testIfUserTryingManipulateAnotherUser(User user) throws TryingManipulateAnotherUserStuffException {
 		User userLogged = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		boolean userTryingUpdateAnotherUser = !userLogged.getId().equals(user.getId());

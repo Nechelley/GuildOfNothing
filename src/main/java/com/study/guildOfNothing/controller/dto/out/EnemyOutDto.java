@@ -16,24 +16,28 @@ public class EnemyOutDto {
 	private Long id;
 	private String name;
 	private RaceOutDto race;
-	private CharacterClassOutDto enemyClass;
-	private CharacterAttributesOutDto baseEnemyAttributes;
+	private CharacterClassOutDto heroClass;
+	private CharacterAttributesOutDto baseHeroAttributes;
 	private int level;
+	private int experiencePoints;
+	private int availableAttributePoints;
 	private int availableActionPoints;
 	private String life;
-	private List<CharacterActionOutDto> characterActions;
+	private List<BattleActionOutDto> battleActions;
 	private List<ItemOutDto> items;
 
 	public EnemyOutDto(Enemy enemy) {
 		id = enemy.getId();
 		name = enemy.getName();
 		race = new RaceOutDto(enemy.getRace());
-		enemyClass = new CharacterClassOutDto(enemy.getCharacterClass());
-		baseEnemyAttributes = new CharacterAttributesOutDto(enemy.getBaseCharacterAttributes());
+		heroClass = new CharacterClassOutDto(enemy.getCharacterClass());
+		baseHeroAttributes = new CharacterAttributesOutDto(enemy.getBaseCharacterAttributes());
 		level = enemy.getLevel();
+		experiencePoints = enemy.getExperiencePoints();
+		availableAttributePoints = enemy.getAvailableAttributePoints();
 		availableActionPoints = enemy.getAvailableActionPoints();
 		life = enemy.getLife() + "/" + (enemy.getBaseCharacterAttributes().getConstitution()* Character.LIFE_MULTIPLIER);
-		characterActions = CharacterActionOutDto.createDtoFromCharacterActionList(enemy.getCharacterActions());
+		battleActions = BattleActionOutDto.createDtoFromBattleActionList(enemy.getBattleActions());
 		items = ItemOutDto.createDtoFromItemList(enemy.getItems());
 	}
 

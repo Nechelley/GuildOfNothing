@@ -1,5 +1,8 @@
 package com.study.guildOfNothing.general.configuration.validation.exception;
 
+import lombok.Getter;
+
+@Getter
 public class FormErrorException extends Exception {
 
 	private String field;
@@ -8,14 +11,6 @@ public class FormErrorException extends Exception {
 	public FormErrorException(String field, String error) {
 		this.field = field;
 		this.error = error;
-	}
-
-	public String getField() {
-		return field;
-	}
-
-	public String getError() {
-		return error;
 	}
 
 }

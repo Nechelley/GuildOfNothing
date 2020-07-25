@@ -1,4 +1,4 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ä£Áàùÿÿÿÿ
 :
 java:S2119"Save and re-use this "Random".(¼İÅf8­ÛöÁ¶.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ä£Áàùÿÿÿÿ

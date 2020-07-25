@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class HandEquipmentServiceImpl implements HandEquipmentService {
 
+	private final HandEquipmentRepository handEquipmentRepository;
+
 	@Autowired
-	private HandEquipmentRepository handEquipmentRepository;
+	public HandEquipmentServiceImpl(HandEquipmentRepository handEquipmentRepository) {
+		this.handEquipmentRepository = handEquipmentRepository;
+	}
 
 	@Override
 	public HandEquipment createRamdomHandEquipmentBasedOnCharacter(Character character) {
@@ -25,6 +29,7 @@ public class HandEquipmentServiceImpl implements HandEquipmentService {
 		handEquipment.setMagicPower(0);
 		handEquipment.setPhysicalPower(5);
 		handEquipment.setTwoHandEquipment(true);
+		handEquipment.setCharacter(character);
 		return handEquipmentRepository.save(handEquipment);
 	}
 

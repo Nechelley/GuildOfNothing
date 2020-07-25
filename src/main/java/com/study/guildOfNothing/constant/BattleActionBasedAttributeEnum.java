@@ -1,6 +1,6 @@
 package com.study.guildOfNothing.constant;
 
-public enum AttackActionTypeEnum {
+public enum BattleActionBasedAttributeEnum {
 
 	STRENGTH_BASED("STRENGTH_BASED"),
 	INTELLIGENCE_BASED("INTELLIGENCE_BASED"),
@@ -9,7 +9,7 @@ public enum AttackActionTypeEnum {
 
 	private String text;
 
-	AttackActionTypeEnum(String text) {
+	BattleActionBasedAttributeEnum(String text) {
 		this.text = text;
 	}
 

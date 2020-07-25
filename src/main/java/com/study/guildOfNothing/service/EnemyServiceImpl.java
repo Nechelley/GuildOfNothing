@@ -22,18 +22,23 @@ import java.util.Random;
 @Service
 public class EnemyServiceImpl implements EnemyService {
 
-	@Autowired
-	private EnemyRepository enemyRepository;
+	private final EnemyRepository enemyRepository;
+
+	private final RaceService raceService;
+
+	private final CharacterClassService characterClassService;
+
+	private final HandEquipmentService handEquipmentService;
 
 	@Autowired
-	private RaceService raceService;
+	public EnemyServiceImpl(EnemyRepository enemyRepository, RaceService raceService, CharacterClassService characterClassService, HandEquipmentService handEquipmentService) {
+		this.enemyRepository = enemyRepository;
+		this.raceService = raceService;
+		this.characterClassService = characterClassService;
+		this.handEquipmentService = handEquipmentService;
+	}
 
-	@Autowired
-	private CharacterClassService characterClassService;
-
-	@Autowired
-	private HandEquipmentService handEquipmentService;
-
+	@Override
 	@Transactional
 	public Enemy createRandomEnemyForBattle(Battle battle) {
 		Enemy enemy = new Enemy();
@@ -54,8 +59,7 @@ public class EnemyServiceImpl implements EnemyService {
 	}
 
 	private String getRandomEnemyName() {
-		Random random = new Random();
-		return "Enemy " + random.nextInt(100);
+		return "Enemy " + (new Random()).nextInt(100);
 	}
 
 }

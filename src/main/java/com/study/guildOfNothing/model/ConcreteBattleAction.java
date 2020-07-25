@@ -10,11 +10,12 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@DiscriminatorValue(value = "SpecialBattleAction")
+@DiscriminatorValue(value = "ConcreteBattleAction")
 @Data
-public class SpecialBattleAction extends BattleAction {
+public class ConcreteBattleAction extends BattleAction {
 
-	public List<BattleLogMessage> doBattleAction(Character whoDoingAction, List<Character> targets, Battle battle) {
+	@Override
+	public List<BattleLogMessage> doBattleAction(Character whoDoingAction, Battle battle) {
 		//Just to create a concrete instance
 		return Collections.emptyList();
 	}

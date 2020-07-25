@@ -12,8 +12,9 @@ import java.util.stream.Collectors;
 @PrimaryKeyJoinColumn(name = "character_id")
 public class Enemy extends Character {
 
-	public boolean isHero() {
-		return false;
+	public Enemy() {
+		super();
+		setHero(false);
 	}
 
 	public void levelUpRamdomically(int newLevel) {
@@ -42,15 +43,17 @@ public class Enemy extends Character {
 		}
 	}
 
-	public CharacterAction choiceRandomCharacterAction() {
-		List<CharacterAction> availableActions = getCharacterActions().stream()
-				.filter(characterAction -> !characterAction.isStandartAction() && characterAction.getCostActionPoints() <= getAvailableActionPoints())
+	public BattleAction choiceRandomCharacterAction() {
+		List<BattleAction> availableActions = getBattleActions().stream()
+				.filter(battleActionRelationship -> battleActionRelationship.getBattleAction().isAlreadyToBeUsedAndNotStandart(this))
+				.collect(Collectors.toList())
+				.stream()
+				.map(CharacterBattleActionRelationship::getBattleAction)
 				.collect(Collectors.toList());
 		if (availableActions.isEmpty())
 			return null;
 
-		Random random = new Random();
-		int randomPos = random.nextInt(availableActions.size()) ;
+		int randomPos = (new Random()).nextInt(availableActions.size()) ;
 		return availableActions.get(randomPos);
 	}
 

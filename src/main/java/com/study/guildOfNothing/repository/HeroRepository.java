@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface HeroRepository extends JpaRepository<Hero, Long> {
 
@@ -17,5 +19,10 @@ public interface HeroRepository extends JpaRepository<Hero, Long> {
 	@Modifying
 	@Query("delete from Hero h where h.id = ?1")
 	void deleteById(Long id);
+
+	@Query("select h from Hero h " +
+			"inner join Battle b " +
+			"where h.id = ?1")
+	Optional<Hero> getHeroInBattle(Long id);
 
 }
